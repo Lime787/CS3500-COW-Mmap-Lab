@@ -95,6 +95,10 @@ LABUPPER = $(shell echo $(LAB) | tr a-z A-Z)
 XCFLAGS += -DSOL_$(LABUPPER) -DLAB_$(LABUPPER)
 endif
 
+ifeq ($(LAB),cowmmap)
+XCFLAGS += -DLAB_COW -DLAB_MMAP
+endif
+
 CFLAGS += $(XCFLAGS)
 CFLAGS += -MD
 CFLAGS += -mcmodel=medany
@@ -227,6 +231,13 @@ endif
 ifeq ($(LAB),cow)
 UPROGS += \
 	$U/_cowtest
+endif
+
+ifeq ($(LAB),cowmmap)
+UPROGS += \
+	$U/_cowtest\
+	$U/_mmaptest\
+	$U/_vmtest
 endif
 
 ifeq ($(LAB),thread)
